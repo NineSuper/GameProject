@@ -1,10 +1,10 @@
-# README - Projet de Développement d'un Jeu 2D avec SDL
+# Projet de Développement d'un Jeu 2D avec SDL 👾
 
-## Objectifs du Projet :
+## 📋 Objectifs du Projet :
 
 Ce projet vise à développer un jeu 2D à partir de zéro en utilisant le framework SDL (Simple DirectMedia Layer) en langage C. Le jeu sera inspiré du concept de Skyblock, un mode de jeu populaire dans Minecraft, et offrira une expérience solo ou multijoueur.
 
-## Fonctionnalités Principales :
+## 🎮 Fonctionnalités Principales :
 
 1. **Univers 2D et Gameplay :** Le jeu présentera un univers en 2D avec des îles flottantes générées de manière procédurale. Les joueurs pourront explorer ces îles, collecter des ressources, construire des structures et interagir avec l'environnement.
 
@@ -16,16 +16,16 @@ Ce projet vise à développer un jeu 2D à partir de zéro en utilisant le frame
 
 5. **Système de Construction :** Un système de construction complet permettra aux joueurs de créer des structures personnalisées sur leurs îles. Ils pourront concevoir des bâtiments, des fermes, des routes et d'autres éléments pour personnaliser leur environnement.
 
-## Développement et Contributions :
+## 👷‍♂️ Développement et Contributions :
 
 - Ce projet est conçu pour être une expérience d'apprentissage en programmation en C et en utilisant le framework SDL. Les contributeurs sont encouragés à participer au développement du jeu en proposant des améliorations, des correctifs de bogues et de nouvelles fonctionnalités.
 
 - Les contributions peuvent inclure l'optimisation du code, l'ajout de fonctionnalités supplémentaires, l'amélioration de l'interface utilisateur, etc.
 
-## Installation et Exécution :
+## 🖲️ Installation et Exécution :
 
 - Les instructions d'installation et d'exécution seront fournies dans le fichier README.md du dépôt GitHub du projet.
 
-## Avertissement :
+## ⚠️ Avertissement :
 
 Ce jeu est en cours de développement et peut contenir des bugs ou des fonctionnalités non implémentées. Les contributeurs et les utilisateurs sont invités à signaler tout problème rencontré pour améliorer la qualité du jeu.
