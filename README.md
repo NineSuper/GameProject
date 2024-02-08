@@ -18,7 +18,7 @@ Ce projet vise à développer un jeu 2D à partir de zéro en utilisant le frame
 
 ## 👷‍♂️ Développement et Contributions :
 
-- Ce projet est conçu pour être une expérience d'apprentissage en programmation en C et en utilisant le framework SDL. Les contributeurs sont encouragés à participer au développement du jeu en proposant des améliorations, des correctifs de bogues et de nouvelles fonctionnalités.
+- Ce projet est conçu pour être une expérience d'apprentissage en programmation en C et en utilisant le framework SDL. Les contributeurs sont encouragés à participer au développement du jeu en proposant des améliorations, des correctifs de bugs et de nouvelles fonctionnalités.
 
 - Les contributions peuvent inclure l'optimisation du code, l'ajout de fonctionnalités supplémentaires, l'amélioration de l'interface utilisateur, etc.
 
