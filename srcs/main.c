@@ -1,4 +1,4 @@
-#include "../Includes/graphics/graphics.h"
+#include "../Includes/graphics.h"
 
 /*
 ? Ce fichier contient les fonctions principales nécessaires au fonctionnement du jeu.
