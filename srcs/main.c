@@ -10,7 +10,7 @@
 
 int main()
 {
-    s_windows   *master;
+    s_windows	*master;
 
     master = calloc(sizeof(master), 1);
     if (!master)
@@ -18,11 +18,10 @@ int main()
     SDL_Init(SDL_INIT_VIDEO);
     master->win = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 720, SDL_WINDOW_RESIZABLE);
     if (!master->win)
-        return (printf("%s%s\n", WIN_INIT_ERROR, SDL_GetError()));
-    master->renderer = SDL_CreateRenderer(master->win, -1, SDL_RENDERER_ACCELERATED);
+        return (1);
+    master->renderer = SDL_CreateRenderer(master->win, 1, SDL_RENDERER_ACCELERATED);
     if (master->renderer == NULL)
     {
-        printf("%s%s\n", RENDU_ERROR, SDL_GetError());
         SDL_DestroyWindow(master->win);
         SDL_Quit();
         return (1);

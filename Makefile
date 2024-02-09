@@ -4,25 +4,10 @@ NAME = Game
 
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c11
-LDFLAGS = -lSDL2
+LDFLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 SRC = srcs/main.c
 OBJ = $(SRC:.c=.o)
-
-OS := $(shell uname -s)
-ifeq ($(OS),Windows_NT) # Windows
-    CC = gcc
-    FLAGS = -lSDL2
-else
-    ifeq ($(OS),Linux)  # Linux
-        CC = gcc
-        LIBFLAGS = -lSDL2
-    endif
-    ifeq ($(OS),Darwin) # MacOS
-        CC = gcc
-        FLAGS = -I SDL2_libs/macOS/include -L SDL2_libs/macOS/lib -lSDL2
-    endif
-endif
 
 # ------------------------------ Couleurs ------------------------------
 

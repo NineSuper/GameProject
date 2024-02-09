@@ -2,9 +2,14 @@
 # define GRAPHICS_H
 
 /*	Includes	*/
-
-# include "../SDL2.h"
+// * graphics
+# include <SDL2/SDL.h>
+# include <SDL2/SDL_image.h>
+# include <SDL2/SDL_ttf.h>
+# include <SDL2/SDL_mixer.h>
+// * others
 # include <stdlib.h>
+# include <stdio.h>
 
 /*	STRING	*/
 # define WIN_INIT_ERROR "Erreur lors de la création de la fenêtre : "

@@ -24,7 +24,23 @@ Ce projet vise à développer un jeu 2D à partir de zéro en utilisant le frame
 
 ## 🖲️ Installation et Exécution :
 
-- Les instructions d'installation et d'exécution seront fournies dans le fichier README.md du dépôt GitHub du projet.
+- Le programme ne peut être compilé que sous linux actuellement.
+
+1. **Installation des librairies:**
+```
+sudo apt update
+sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev
+```
+
+2. **Compilation des fichiers:**
+```
+make
+```
+
+3. **Execution du projet**:
+```
+./Game
+```
 
 ## ⚠️ Avertissement :
 
