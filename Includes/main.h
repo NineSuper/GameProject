@@ -8,23 +8,24 @@
 # include <SDL2/SDL_ttf.h>
 # include <SDL2/SDL_mixer.h>
 // * files
-# include "Input.h"
+# include "input.h"
+# include "Sound.h"
 // * others
 # include <stdlib.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <pthread.h>
 
 /*	STRING	*/
-# define WIN_INIT_ERROR "Erreur lors de la création de la fenêtre : "
-# define RENDU_ERROR "Erreur lors de la création du rendu : "
-
 # define TITLE "GameInC"
 
 typedef struct	t_windows
 {
 	SDL_Window		*win;
 	SDL_Renderer	*renderer;
-	s_input			*input;
+	s_input			input; // Input.h
+	s_sound			son; // Sound.h
+	bool			running; // Game Status
 }	s_windows;
 
 #endif
