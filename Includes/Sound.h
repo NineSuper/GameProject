@@ -20,8 +20,9 @@ typedef struct	t_sound
 {
 	pthread_t	soundThreadId; // Id thread son
 	Mix_Music	*music;
+	int			*error_m; // error master
 }	s_sound;
 
-void	sound_init(s_sound *sound);
+void	sound_init(s_sound *sound, int *error);
 
 #endif

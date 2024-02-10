@@ -11,25 +11,24 @@ void	*soundThread(void* data)
 {
     SoundThreadData	*soundData = (SoundThreadData*)data;
     Mix_PlayMusic(soundData->music, 1);
+	printf("ok\n");
     return (NULL);
 }
 
 /*
-Initialiser le thread qui va permettre au son de s'executer
+	Initialiser le thread qui va permettre au son de s'executer
 */
-void	sound_init(s_sound *sound)
+void	sound_init(s_sound *sound, int *error)
 {
 	pthread_t	soundThreadId;
 
+	sound->error_m = error;
 	Mix_Init(MIX_INIT_MP3);
-	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
-	sound->music = Mix_LoadMUS(LOFI_SOUND);
+	Mix_OpenAudio(MIX_DEFAULT_FORMAT, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024);
+	sound->music = Mix_LoadMUS(ROLL_SOUND);
 	Mix_PlayMusic(sound->music, -1);
 	if (!sound->music)
-	{
-		printf("error\n");
-		exit (0);
-	}
+		*sound->error_m = 1;
 	SoundThreadData soundData = {.music = sound->music};
 	pthread_create(&sound->soundThreadId, NULL, soundThread, &soundData);
 	pthread_join(sound->soundThreadId, NULL);

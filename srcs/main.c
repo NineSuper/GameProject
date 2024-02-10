@@ -28,7 +28,7 @@ void	gameLoop(s_windows *master)
 	SDL_Event   event;
 
 	master->running = true;
-    while (master->running)
+    while (master->running && !master->error)
     {
         while (SDL_PollEvent(&event) && event.type == SDL_QUIT)
                 master->running = false;
@@ -40,8 +40,10 @@ void	gameLoop(s_windows *master)
 		// TODO mise à jour de l'état du jeu
 
         SDL_RenderPresent(master->renderer); // rendu final
-        //SDL_Delay(10);
+        SDL_Delay(10);
     }
+    if (master->error)
+        printf("Il y'a eu une erreur\n");
     SDL_DestroyRenderer(master->renderer);
     SDL_DestroyWindow(master->win);
     SDL_Quit();
@@ -59,6 +61,7 @@ int main()
     s_windows	*master;
 
     master = calloc(sizeof(master), 1);
+    master->error = 0;
     if (!master)
         return (1);
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
@@ -72,7 +75,7 @@ int main()
         SDL_Quit();
         return (1);
     }
-    sound_init(&master->son);
+    sound_init(&master->son, &master->error);
 	gameLoop(master);
     //exit_game(master);
     return 0;

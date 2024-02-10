@@ -8,7 +8,7 @@
 # include <SDL2/SDL_ttf.h>
 # include <SDL2/SDL_mixer.h>
 // * files
-# include "input.h"
+# include "Input.h"
 # include "Sound.h"
 // * others
 # include <stdlib.h>
@@ -26,6 +26,7 @@ typedef struct	t_windows
 	s_input			input; // Input.h
 	s_sound			son; // Sound.h
 	bool			running; // Game Status
+	int				error;
 }	s_windows;
 
 #endif
