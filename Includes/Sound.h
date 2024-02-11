@@ -4,25 +4,32 @@
 /*	Includes	*/
 # include "main.h"
 # include <pthread.h>
+# include <stdbool.h>
 /*	Sounds files	*/
 # define LOFI_SOUND "assets/sounds/music/lofi.mp3"
 # define DANCE_SOUND "assets/sounds/music/dance-away.mp3"
 # define SPACE_SOUND "assets/sounds/music/space.mp3"
 # define ROLL_SOUND "assets/sounds/music/we-own-the-night-roll-out.mp3"
 
-// Thread sonore
-typedef struct
-{
-    Mix_Music *music;
-}	SoundThreadData;
-
+/*	Structure	*/
 typedef struct	t_sound
 {
-	pthread_t	soundThreadId; // Id thread son
-	Mix_Music	*music;
-	int			*error_m; // error master
+	unsigned int	id;
+	pthread_t		soundThreadId; // Id thread son
+	Mix_Music		*music;
+	char			*file;
+	bool			play;
+	int				status;
+	int				*error_m; // error master
+	struct t_sound		*next;
 }	s_sound;
 
-void	sound_init(s_sound *sound, int *error);
+
+/*	Fonctions	*/
+s_sound	*sound_next(s_sound *lst);
+void	sound_init(s_sound *sound);
+void	play_sound(s_sound *sound, char *file);
+void	close_sound(s_sound *sound, char *file);
+void	*soundThread(void *data);
 
 #endif

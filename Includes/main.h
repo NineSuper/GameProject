@@ -15,9 +15,12 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <pthread.h>
+# include <string.h>
 
 /*	STRING	*/
 # define TITLE "GameInC"
+
+
 
 typedef struct	t_windows
 {
