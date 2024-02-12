@@ -21,15 +21,27 @@ typedef struct	t_sound
 	bool			play;
 	int				status;
 	int				*error_m; // error master
+	int				channel; // Canal audio
 	struct t_sound		*next;
 }	s_sound;
 
+/*
+* Info sur le canal audio
+
+2 = Général
+3 = Musique
+4 à 8 = Effets Sonore
+9 = Cinématique
+*/
 
 /*	Fonctions	*/
 s_sound	*sound_next(s_sound *lst);
 void	sound_init(s_sound *sound);
-void	play_sound(s_sound *sound, char *file);
+void	play_sound(s_sound *sound, char *file, int channel);
 void	close_sound(s_sound *sound, char *file);
 void	*soundThread(void *data);
+void	volume_master(int volumeChange);
+void	volume_effect(int volumeChange);
+void	volume_music(int volumeChange);
 
 #endif

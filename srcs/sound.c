@@ -7,49 +7,68 @@
 
 * Chaque musique jouée auront leur thread
 * Pthread_join = le thread principal attend la fin des threads
+
+! Mix_Chunk = audio court et répétitif
+! Mix_Music = audio long
+
+* Info sur le canal audio
+
+2 = Général
+3 = Musique
+4 à 8 = Effets Sonore
+9 = Cinématique
 */
 
-s_sound	*sound_next(s_sound *lst)
+void	volume_music(int volumeChange)
 {
-	int	i;
+	static int	volume = 16;
 
-	i = 1;
-    if (!lst)
-        return (NULL);
-    s_sound	*new = malloc(sizeof(s_sound));
-    if (!new)
-	{
-        printf("Erreur d'allocation de mémoire\n");
-        return (NULL);
-    }
-	s_sound	*temp = lst;
-	while (temp->next != NULL)
-	{
-		temp = temp->next;
-		i++;
-	}
-	new->next = NULL;
-	new->id = i;
-	new->status = 0;
-	new->play = false;
-	new->error_m = lst->error_m;
-	temp->next = new;
-    return (new);
+	volume += volumeChange;
+	if (volume < 0)
+		volume = 0;
+	else if (volume > 128)
+		volume = 128;
+	Mix_VolumeMusic(volume);
+}
+
+void	volume_master(int volumeChange)
+{
+	static int	volume = 16;
+
+	volume += volumeChange;
+	if (volume < 0)
+		volume = 0;
+	else if (volume > 128)
+		volume = 128;
+	Mix_Volume(2, volume);
+}
+
+void	volume_effect(int volumeChange)
+{
+	static int	volume = 16;
+
+	volume += volumeChange;
+	if (volume < 0)
+		volume = 0;
+	else if (volume > 128)
+		volume = 128;
+	Mix_Volume(4, volume);
+	Mix_Volume(5, volume);
+	Mix_Volume(6, volume);
+	Mix_Volume(7, volume);
+	Mix_Volume(8, volume);
 }
 
 void	*soundThread(void *data)
 {
     s_sound	*sound = (s_sound*)data;
+	sound->music = Mix_LoadMUS(sound->file);
+	if (!sound->music) // TODO gérer l'erreur si la musique n'est pas chargée
+		*sound->error_m = 1;
     Mix_PlayMusic(sound->music, 1);
 	if (!sound->music) // TODO gérer l'erreur
-	{
-		printf("error\n");
-		*sound->error_m = 1;
-		sound->status = -1;
 		return (NULL);
-	}
 	sound->play = true;
-	//sound->status = 1; // TODO gérer les status
     return (NULL);
 }
 
@@ -66,18 +85,12 @@ void	close_sound(s_sound *sound, char *file)
 	//Mix_CloseAudio();
 }
 
-void	play_sound(s_sound *sound, char *file)
+void	play_sound(s_sound *sound, char *file, int channel)
 {
 	// TODO gérer la mise en pause du son
 	// TODO gérer le volume d'un son
-	sound->music = Mix_LoadMUS(file);
-	if (!sound->music) // TODO gérer l'erreur si la musique n'est pas chargée
-	{
-		printf("error\n");
-		*sound->error_m = 1;
-	}
 	sound->file = SDL_strdup(file);
-	printf("%d\n", sound->id);
+	sound->channel = channel;
 	pthread_create(&sound->soundThreadId, NULL, soundThread, sound);
 }
 
@@ -90,5 +103,36 @@ void	sound_init(s_sound *sound)
 	sound->play = false;
 	sound->music = NULL;
 	Mix_Init(MIX_INIT_MP3);
-	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024);
+	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024);
+	Mix_AllocateChannels(10);
+	volume_master(0);
+	volume_music(0);
+	volume_effect(0);
+}
+
+/*	Fonction struct sound->next */
+s_sound	*sound_next(s_sound *lst)
+{
+	int	i;
+
+	i = 1;
+    if (!lst)
+        return (NULL);
+    s_sound	*new = malloc(sizeof(s_sound));
+    if (!new)
+        return (NULL);
+	s_sound	*temp = lst;
+	while (temp->next != NULL)
+	{
+		temp = temp->next;
+		i++;
+	}
+	new->channel = 0;
+	new->next = NULL;
+	new->id = i;
+	new->status = 0;
+	new->play = false;
+	new->error_m = lst->error_m;
+	temp->next = new;
+    return (new);
 }

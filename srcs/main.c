@@ -74,9 +74,10 @@ void	gameLoop(s_windows *master)
 
 void    exit_game(s_windows *master)
 {
-    // TODO libérer les mémoires et les threads lors de l'exit du jeu
-    //pthread_join(master->son.soundThreadId, NULL);
-    //free(master);
+    //TODO libérer les mémoires et les threads lors de l'exit du jeu
+    //while (&master->son.next)
+    pthread_join(master->son.soundThreadId, NULL);
+    free(master);
 }
 
 // TODO chercher des assets libre de droit
@@ -109,8 +110,11 @@ int main()
         return (1);
     }
     sound_init(&master->son);
-    play_sound(&master->son, LOFI_SOUND);
+    play_sound(&master->son, ROLL_SOUND, 3);
 	gameLoop(master);
     //exit_game(master);
     return 0;
 }
+
+
+
