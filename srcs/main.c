@@ -66,7 +66,7 @@ void	gameLoop(s_windows *master)
         SDL_Delay(16); //* ~60 FPS
     }
     if (master->error)
-        printf("error\n");
+        printf("master error\n");
     SDL_DestroyRenderer(master->renderer);
     SDL_DestroyWindow(master->win);
     SDL_Quit();
@@ -82,10 +82,11 @@ void    exit_game(s_windows *master)
 
 // TODO chercher des assets libre de droit
 // TODO faire charger toutes les ressources du jeu avec un écran de chargement
+// TODO découper des tiles
 // TODO savoir quel type de vu 2D (Top-Down ou Vue isométrique)
-// TODO faire la 2D, système de caméra (Zoom/dézoom)
-// TODO CLEAR CODE/Dossiers/revoir les fonctions et les includes
-// TODO Faire une map temporaire afin de mettre un joueur, une map, un HUD, des    items, etc..
+// TODO faire la 2D, système de caméra (Zoom/dézoom/rotation ?)
+// TODO Faire les TODO dans sound/sound.c
+// TODO Faire une map temporaire afin de mettre un joueur, une map, un HUD, des items, etc..
 // TODO faire déplacer le joueur
 // TODO faire des animations (idle/walk/jump ?)
 
@@ -109,8 +110,10 @@ int main()
         SDL_Quit();
         return (1);
     }
+
     sound_init(&master->son);
-    play_sound(&master->son, ROLL_SOUND, 3);
+    play_sound(&master->son, ROLL_SOUND);
+
 	gameLoop(master);
     //exit_game(master);
     return 0;

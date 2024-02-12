@@ -7,7 +7,7 @@ CFLAGS = -std=c11
 #CFLAGS = -Wall -Wextra -std=c11
 LDFLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
-SRC = srcs/main.c srcs/sound.c
+SRC = srcs/main.c srcs/sound/sound.c
 OBJ = $(SRC:.c=.o)
 
 # ------------------------------ Couleurs ------------------------------

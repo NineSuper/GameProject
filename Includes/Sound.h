@@ -16,7 +16,8 @@ typedef struct	t_sound
 {
 	unsigned int	id;
 	pthread_t		soundThreadId; // Id thread son
-	Mix_Music		*music;
+	Mix_Music		*music; // Musique
+	Mix_Chunk		*effect; // Effet sonore
 	char			*file;
 	bool			play;
 	int				status;
@@ -37,9 +38,9 @@ typedef struct	t_sound
 /*	Fonctions	*/
 s_sound	*sound_next(s_sound *lst);
 void	sound_init(s_sound *sound);
-void	play_sound(s_sound *sound, char *file, int channel);
+void	play_sound(s_sound *sound, char *file);
 void	close_sound(s_sound *sound, char *file);
-void	*soundThread(void *data);
+void	sound_create(s_sound *sound, char *file, int channel);
 void	volume_master(int volumeChange);
 void	volume_effect(int volumeChange);
 void	volume_music(int volumeChange);
