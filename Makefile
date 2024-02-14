@@ -5,9 +5,12 @@ NAME = Game
 CC = gcc
 CFLAGS = -std=c11
 #CFLAGS = -Wall -Wextra -std=c11
-LDFLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
+LDFLAGS = -I Includes/ -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lexpat
 
-SRC = srcs/main.c srcs/sound/sound.c
+SRC = srcs/main.c \
+	srcs/sound/sound.c \
+	srcs/utils/render/font.c
+
 OBJ = $(SRC:.c=.o)
 
 # ------------------------------ Couleurs ------------------------------

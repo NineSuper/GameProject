@@ -5,14 +5,10 @@
 ? la lecture de musique de fond, la lecture des effets sonores,
 ? ainsi que l'initialisation et la libération des ressources audio.
 
-* Pthread_join = le thread principal attend la fin des threads
-
 ! Mix_Chunk = audio court et répétitif
 ! Mix_Music = audio long
 
 * Info sur le canal audio
-
-TODO Il y'aura un thread pour tous les sons
 
 2 = Général
 3 = Musique
@@ -76,27 +72,29 @@ void	sound_create(s_sound *sound, char *file, int channel)
 		temp->effect = Mix_LoadWAV(temp->file);
 	else // TODO Gérer les erreurs
 	{
-		printf("ERROR sound : channel invalid [%d]❌\n", channel);
+		printf("ERROR sound : channel invalid [%d] ❌\n", channel);
 		return ;
 	}
 	if (!temp->music) // TODO Gérer les erreurs
 	{
-		printf("ERROR sound : \'%s\' can\'t load❌\n", file);
+		printf("ERROR sound : \'%s\' can\'t load ❌\n", file);
 		return ;
 	}
-	printf("Sound loaded successfully: %s✅\n", temp->file);
+	printf("Sound loaded successfully: %s ✅\n", temp->file);
 }
 
 //* Librarie sonore
 void	sound_lib(s_sound *sound)
 {
+	printf("\t[Loading sound 🎵]\n\n");
 	//! Musique
 	sound_create(sound, LOFI_SOUND, 3);
     sound_create(sound, DANCE_SOUND, 3);
     sound_create(sound, SPACE_SOUND, 3);
-    sound_create(sound, "NULL", 3);
+    sound_create(sound, "TEST_ERROR", 3);
     sound_create(sound, ROLL_SOUND, 3);
-	//!Other
+	printf("\n");
+	//! Other
 }
 
 void	sound_init(s_sound *sound)

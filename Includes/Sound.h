@@ -1,8 +1,7 @@
 #ifndef SOUND_H
-# define  SOUND_H
+# define SOUND_H
 
 /*	Includes	*/
-# include "main.h"
 # include <pthread.h>
 # include <stdbool.h>
 /*	Sounds files	*/
@@ -11,11 +10,12 @@
 # define SPACE_SOUND "assets/sounds/music/space.mp3"
 # define ROLL_SOUND "assets/sounds/music/we-own-the-night-roll-out.mp3"
 
+
+
 /*	Structure	*/
 typedef struct	t_sound
 {
 	unsigned int	id;
-	pthread_t		soundThreadId; // Id thread son
 	Mix_Music		*music; // Musique
 	Mix_Chunk		*effect; // Effet sonore
 	char			*file;
@@ -26,6 +26,8 @@ typedef struct	t_sound
 	struct t_sound		*next;
 }	s_sound;
 
+
+
 /*
 * Info sur le canal audio
 
@@ -34,6 +36,8 @@ typedef struct	t_sound
 4 à 8 = Effets Sonore
 9 = Cinématique
 */
+
+
 
 /*	Fonctions	*/
 s_sound	*sound_next(s_sound *lst);

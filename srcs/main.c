@@ -5,80 +5,8 @@
 ? Il gère l'initialisation du jeu, la boucle principale, la gestion des événements,
 ? la mise à jour de l'état du jeu et le rendu graphique.
 ? Il sert de point d'entrée de l'application.
-? Ferme le jeu lors de l'exit
+? Ferme le jeu et libère toutes les mémoires lors de l'exit
 */
-
-void updatePlayer()
-{
-    // Mettre à jour la position du joueur, la vitesse, etc.
-}
-
-void updateMap()
-{
-    // Mettre à jour les éléments de la carte, comme les tuiles, les décors, etc.
-}
-
-void updateAnimations()
-{
-    // Mettre à jour les animations des personnages, des objets, etc.
-}
-
-void handleCollisions()
-{
-    // Vérifier les collisions entre le joueur et les objets/environnement
-    // Si une collision est détectée, effectuer les actions appropriées (déplacement, dommages, etc.)
-}
-
-// Fonction de rendu graphique
-void render()
-{
-    // Effacer l'écran ou effacer les images précédentes
-    // Dessiner le joueur, la carte, les animations, etc.
-    // Mettre à jour l'écran (si nécessaire)
-}
-
-void handleKeyboardEvent(SDL_Event event)
-{
-    // TODO gérer les touches de l'utilisateur
-}
-
-
-void	gameLoop(s_windows *master)
-{
-	SDL_Event   event;
-
-	master->running = true;
-    while (master->running && !master->error)
-    {
-        while (SDL_PollEvent(&event) && event.type == SDL_QUIT)
-                master->running = false;
-
-        //handleKeyboardEvent(event); // TODO Clavier
-
-        SDL_SetRenderDrawColor(master->renderer, 0, 0, 0, 255);
-        SDL_RenderClear(master->renderer);
-
-        SDL_SetRenderDrawColor(master->renderer, 255, 255, 255, 255);
-
-		// TODO mise à jour de l'état du jeu
-
-        SDL_RenderPresent(master->renderer); // rendu final
-        SDL_Delay(16); //* ~60 FPS
-    }
-    if (master->error)
-        printf("master error\n");
-    SDL_DestroyRenderer(master->renderer);
-    SDL_DestroyWindow(master->win);
-    SDL_Quit();
-}
-
-void    exit_game(s_windows *master)
-{
-    //TODO libérer les mémoires et les threads lors de l'exit du jeu
-    //while (&master->son.next)
-    pthread_join(master->son.soundThreadId, NULL);
-    free(master);
-}
 
 // TODO chercher des assets libre de droit
 // TODO faire charger toutes les ressources du jeu avec un écran de chargement
@@ -90,9 +18,43 @@ void    exit_game(s_windows *master)
 // TODO faire déplacer le joueur
 // TODO faire des animations (idle/walk/jump ?)
 
+void	gameLoop(s_master *master)
+{
+	SDL_Event   event;
+
+	master->running = true;
+    init_ttf(&master->font);
+    while (master->running && !master->error)
+    {
+        while (SDL_PollEvent(&event) && event.type == SDL_QUIT)
+                master->running = false;
+
+        //handleKeyboardEvent(event); // TODO Clavier
+
+        SDL_SetRenderDrawColor(master->renderer, 0, 0, 0, 255);
+        SDL_RenderClear(master->renderer);
+
+		// TODO mise à jour de l'état du jeu
+        //SDL_RenderCopy(master->renderer, textTexture, NULL, &textRect); // text
+
+        SDL_RenderPresent(master->renderer); // rendu final
+        SDL_Delay(16); //* ~60 FPS
+    }
+    if (master->error)
+        printf("master error\n");
+}
+
+void    exit_game(s_master *master)
+{
+    //TODO libérer les mémoires et les threads lors de l'exit du jeu
+    SDL_DestroyRenderer(master->renderer);
+    SDL_DestroyWindow(master->win);
+    SDL_Quit();
+}
+
 int main()
 {
-    s_windows	*master;
+    s_master	*master;
 
     master = calloc(sizeof(master), 1);
     master->error = 0;
@@ -115,9 +77,10 @@ int main()
     play_sound(&master->son, ROLL_SOUND);
 
 	gameLoop(master);
-    //exit_game(master);
+    exit_game(master);
     return 0;
 }
+
 
 
 
