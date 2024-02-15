@@ -7,12 +7,12 @@
 # include <SDL2/SDL_image.h>
 # include <SDL2/SDL_ttf.h>
 # include <SDL2/SDL_mixer.h>
+# include <libxml2/libxml/hash.h>
+
 // * files
 # include "input.h"
 # include "sound.h"
 # include "font.h"
-# include <expat.h>
-
 
 // * others
 # include <stdlib.h>
@@ -20,6 +20,7 @@
 # include <stdbool.h>
 # include <pthread.h>
 # include <string.h>
+# include <expat.h>
 
 /*	STRING	*/
 # define TITLE "GameInC"

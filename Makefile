@@ -5,7 +5,8 @@ NAME = Game
 CC = gcc
 CFLAGS = -std=c11
 #CFLAGS = -Wall -Wextra -std=c11
-LDFLAGS = -I Includes/ -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lexpat
+INC = -I Includes/ -I/usr/include/libxml2
+LDFLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 SRC = srcs/main.c \
 	srcs/sound/sound.c \
@@ -57,7 +58,7 @@ TOTAL_FILES := $(words $(SRC))
 COMPILED_FILES := 0
 
 $(NAME): comp_start $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $@ $(LDFLAGS)
+	$(CC) $(INC) $(CFLAGS) $(OBJ) -o $@ $(LDFLAGS)
 	@echo "\n"
 	@$(EXE_READY)
 
@@ -80,6 +81,6 @@ re: fclean all
 
 %.o: %.c
 		@printf "🚧 $(BOLD_YELLOW)Make: $(NO_COLOR)$(BOLD)Compilation des fichiers :$(BOLD_CYAN) %-33.33s$(BOLD_YELLOW)[%d/%d] $(BOLD_YELLOW)[%3d%%] \r$(NO_COLOR)" $? $(COMPILED_FILES) $(TOTAL_FILES) $(shell expr \( $(COMPILED_FILES) \) \* 100 / $(TOTAL_FILES))
-		@$(CC) $(CFLAGS) $(FLAGS) -c $< -o $@
+		@$(CC) $(INC) $(CFLAGS) $(FLAGS) -c $< -o $@
 		@$(eval COMPILED_FILES=$(shell echo $$(($(COMPILED_FILES)+1))))
 		@printf "🚧 $(BOLD_YELLOW)Make: $(NO_COLOR)$(BOLD)Compilation des fichiers :$(BOLD_CYAN) %-33.33s$(BOLD_YELLOW)[%d/%d] $(BOLD_YELLOW)[%3d%%] \r$(NO_COLOR)" $? $(COMPILED_FILES) $(TOTAL_FILES) $(shell expr \( $(COMPILED_FILES) \) \* 100 / $(TOTAL_FILES))

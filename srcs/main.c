@@ -1,13 +1,5 @@
 #include "../Includes/main.h"
 
-/*
-? Ce fichier contient les fonctions principales nécessaires au fonctionnement du jeu.
-? Il gère l'initialisation du jeu, la boucle principale, la gestion des événements,
-? la mise à jour de l'état du jeu et le rendu graphique.
-? Il sert de point d'entrée de l'application.
-? Ferme le jeu et libère toutes les mémoires lors de l'exit
-*/
-
 // TODO chercher des assets libre de droit
 // TODO faire charger toutes les ressources du jeu avec un écran de chargement
 // TODO découper des tiles
@@ -18,12 +10,23 @@
 // TODO faire déplacer le joueur
 // TODO faire des animations (idle/walk/jump ?)
 
+// Fonction de rendu de la carte
+void renderMap(SDL_Renderer *renderer)
+{
+    // Analyser le fichier TMX en utilisant la bibliothèque expat
+    // Pendant l'analyse, la fonction startElement() sera appelée pour chaque élément
+}
+
+void    init_map(s_master *master)
+{
+
+}
+
 void	gameLoop(s_master *master)
 {
 	SDL_Event   event;
 
 	master->running = true;
-    init_ttf(&master->font);
     while (master->running && !master->error)
     {
         while (SDL_PollEvent(&event) && event.type == SDL_QUIT)
@@ -35,7 +38,7 @@ void	gameLoop(s_master *master)
         SDL_RenderClear(master->renderer);
 
 		// TODO mise à jour de l'état du jeu
-        //SDL_RenderCopy(master->renderer, textTexture, NULL, &textRect); // text
+        renderMap(master->renderer);
 
         SDL_RenderPresent(master->renderer); // rendu final
         SDL_Delay(16); //* ~60 FPS
@@ -74,7 +77,10 @@ int main()
     }
 
     sound_init(&master->son);
+    init_ttf(&master->font);
     play_sound(&master->son, ROLL_SOUND);
+
+    init_map(master);
 
 	gameLoop(master);
     exit_game(master);
